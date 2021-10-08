@@ -1,0 +1,81 @@
+// Ce programme propose automatiquement trois films à l'utilisateur en fonction de son âge
+#include <stdio.h>
+#include <cs50.h>
+#include <string.h>
+
+// Définition d'une structure qui contient les trois catégories proposées
+
+typedef struct
+{
+    string enfant;
+    string ado;
+    string adulte;
+}
+catalogue;
+
+int main(void)
+{
+
+// On entre trois films par catégories d'âge
+    catalogue categories[3];
+
+    categories[0].enfant = "Toy Story";
+    categories[0].ado = "Freaky Friday";
+    categories[0].adulte = "The Shining";
+
+    categories[1].enfant = "Le Roi Lion";
+    categories[1].ado = "Clueless";
+    categories[1].adulte = "Conjuring";
+
+    categories[2].enfant = "La Reine des Neiges";
+    categories[2].ado = "Juno";
+    categories[2].adulte = "La Nonne";
+
+// Obtention de l'age de l'utilisateur
+    int age = get_int("Quel est votre âge ? ");
+
+// On vérifie si l'age est inférieur à 11 ans, si oui on propose les films de la catégorie enfant, un à un jusqu'à acceptation
+    if (age < 11)
+    {
+        printf("Vous pouvez voir les films de la catégorie enfant.\n");
+        for (int i = 0; i < 3; i++)
+        {
+            string answer = get_string("Voulez-vous voir %s ? OUI ou NON\n", categories[i].enfant);
+            if (strcmp(answer, "OUI") == 0)
+            {
+                printf("C'est parti, bon visionnage !\n");  // S'il accepte, le programme s'arrête
+                return 0;
+            }
+        }
+    }
+
+// Si l'age n'est pas inférieur à 11 ans, on vérifie s'il est entre 11 et 17 inclus, si oui on propose les films pour adolescents
+    else if (age >= 11 & age <= 17)
+    {
+        printf("Vous pouvez voir les films de la catégorie adolescent.\n");
+        for (int i = 0; i < 3; i++)
+        {
+            string answer = get_string("Voulez-vous voir %s ? OUI ou NON\n", categories[i].ado);
+            if (strcmp(answer, "OUI") == 0)
+            {
+                printf("C'est parti, bon visionnage !\n");
+                return 0;
+            }
+        }
+    }
+// Sinon, on vérifie que la personne est majeure pour proposer les films de la catégorie adulte
+    else if (age >= 18)
+    {
+        printf("Vous pouvez voir les films de la catégorie adulte.\n");
+        for (int i = 0; i < 3; i++)
+        {
+            string answer = get_string("Voulez-vous voir %s ? OUI ou NON\n", categories[i].adulte);
+            if (strcmp(answer, "OUI") == 0)
+            {
+                printf("C'est parti, bon visionnage !\n");
+                return 0;
+            }
+        }
+    }
+}
+
